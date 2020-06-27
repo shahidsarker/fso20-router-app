@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 const Home = () => (
   <div>
     <h2>TKTL notes app</h2>
@@ -37,20 +39,34 @@ const App = () => {
   const padding = { padding: 5 };
 
   return (
-    <div className="App">
+    <Router>
       <div>
-        <button onClick={toPage("home")} style={padding}>
+        <Link style={padding} to="/">
           home
-        </button>
-        <button onClick={toPage("notes")} style={padding}>
+        </Link>
+        <Link style={padding} to="/notes">
           notes
-        </button>
-        <button onClick={toPage("users")} style={padding}>
+        </Link>
+        <Link style={padding} to="/users">
           users
-        </button>
+        </Link>
       </div>
-      {content()}
-    </div>
+
+      <Switch>
+        <Route path="/notes">
+          <Notes />
+        </Route>
+        <Route path="/users">
+          <Users />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+      <div>
+        <i>Note app, based on Department of CS 2020</i>
+      </div>
+    </Router>
   );
 };
 
