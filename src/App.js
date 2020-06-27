@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-function App() {
+const Home = () => (
+  <div>
+    <h2>TKTL notes app</h2>
+  </div>
+);
+
+const Notes = () => (
+  <div>
+    <h2>Notes</h2>
+  </div>
+);
+
+const Users = () => (
+  <div>
+    <h2>Users</h2>
+  </div>
+);
+
+const App = () => {
+  const [page, setPage] = useState("home");
+
+  const toPage = (page) => (e) => {
+    e.preventDefault();
+    setPage(page);
+  };
+
+  const content = () => {
+    if (page === "home") return <Home />;
+    else if (page === "notes") return <Notes />;
+    else if (page === "users") return <Users />;
+  };
+
+  const padding = { padding: 5 };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <button onClick={toPage("home")} style={padding}>
+          home
+        </button>
+        <button onClick={toPage("notes")} style={padding}>
+          notes
+        </button>
+        <button onClick={toPage("users")} style={padding}>
+          users
+        </button>
+      </div>
+      {content()}
     </div>
   );
-}
+};
 
 export default App;
