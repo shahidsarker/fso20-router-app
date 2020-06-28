@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect,
   useParams,
   useHistory,
+  useRouteMatch,
 } from "react-router-dom";
 
 const Home = () => (
@@ -29,15 +28,15 @@ const Home = () => (
   </div>
 );
 
-const Note = ({ notes }) => {
-  const id = useParams().id;
-  const note = notes.find((n) => n.id === Number(id));
+const Note = ({ note }) => {
+  // const id = useParams().id;
+  // const note = notes.find((n) => n.id === Number(id));
   return (
     <div>
       <h2>{note.content}</h2>
       <div>{note.user}</div>
       <div>
-        <strong>{note.important ? "tärkeä" : ""}</strong>
+        <strong>{note.important ? "important" : ""}</strong>
       </div>
     </div>
   );
@@ -122,46 +121,49 @@ const App = () => {
 
   const padding = { padding: 5 };
 
+  const match = useRouteMatch("/notes/:id");
+  const note = match
+    ? notes.find((note) => note.id === Number(match.params.id))
+    : null;
+
   return (
     <div>
-      <Router>
-        <div>
-          <Link style={padding} to="/">
-            home
+      <div>
+        <Link style={padding} to="/">
+          home
+        </Link>
+        <Link style={padding} to="/notes">
+          notes
+        </Link>
+        <Link style={padding} to="/users">
+          users
+        </Link>
+        {user ? (
+          <em>{user} logged in</em>
+        ) : (
+          <Link style={padding} to="/login">
+            login
           </Link>
-          <Link style={padding} to="/notes">
-            notes
-          </Link>
-          <Link style={padding} to="/users">
-            users
-          </Link>
-          {user ? (
-            <em>{user} logged in</em>
-          ) : (
-            <Link style={padding} to="/login">
-              login
-            </Link>
-          )}
-        </div>
+        )}
+      </div>
 
-        <Switch>
-          <Route path="/notes/:id">
-            <Note notes={notes} />
-          </Route>
-          <Route path="/notes">
-            <Notes notes={notes} />
-          </Route>
-          <Route path="/users">
-            {user ? <Users /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/login">
-            <Login onLogin={login} />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+      <Switch>
+        <Route path="/notes/:id">
+          <Note note={note} />
+        </Route>
+        <Route path="/notes">
+          <Notes notes={notes} />
+        </Route>
+        <Route path="/users">
+          {user ? <Users /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/login">
+          <Login onLogin={login} />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
       <div>
         <br />
         <i>Note app, based on Department of CS 2020</i>
