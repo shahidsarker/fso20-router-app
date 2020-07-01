@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Table, Form, Button, Alert, Navbar, Nav } from "react-bootstrap";
+import {
+  Container,
+  TableContainer,
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  Paper,
+} from "@material-ui/core";
 import "./App.css";
 
 import {
@@ -43,18 +51,21 @@ const Note = ({ note }) => {
 const Notes = ({ notes }) => (
   <div>
     <h2>Notes</h2>
-    <Table striped>
-      <tbody>
-        {notes.map((note) => (
-          <tr key={note.id}>
-            <td>
-              <Link to={`/notes/${note.id}`}>{note.content}</Link>
-            </td>
-            <td>{note.user}</td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+
+    <TableContainer component={Paper}>
+      <Table>
+        <TableBody>
+          {notes.map((note) => (
+            <TableRow key={note.id}>
+              <TableCell>
+                <Link to={`/notes/${note.id}`}>{note.content}</Link>
+              </TableCell>
+              <TableCell>{note.name}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   </div>
 );
 
@@ -81,8 +92,8 @@ const Login = (props) => {
   return (
     <div>
       <h2>login</h2>
-      <Form onSubmit={onSubmit}>
-        <Form.Group>
+      <form onSubmit={onSubmit}>
+        {/* <Form.Group>
           <Form.Label>username:</Form.Label>
           <Form.Control type="text" name="username" />
           <Form.Label>password:</Form.Label>
@@ -90,8 +101,8 @@ const Login = (props) => {
           <Button variant="primary" type="submit">
             login
           </Button>
-        </Form.Group>
-      </Form>
+        </Form.Group> */}
+      </form>
     </div>
   );
 };
@@ -137,37 +148,37 @@ const App = () => {
     : null;
 
   return (
-    <div className="container">
-      {message && <Alert variant="success">{message}</Alert>}
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav.Link href="#" as="span">
-            <Link style={padding} to="/">
-              home
-            </Link>
-          </Nav.Link>
-          <Nav.Link href="#" as="span">
-            <Link style={padding} to="/notes">
-              notes
-            </Link>
-          </Nav.Link>
-          <Nav.Link href="#" as="span">
-            <Link style={padding} to="/users">
-              users
-            </Link>
-          </Nav.Link>
-          <Nav.Link href="#" as="span">
-            {user ? (
-              <em>{user} logged in</em>
-            ) : (
-              <Link style={padding} to="/login">
-                login
-              </Link>
-            )}
-          </Nav.Link>
-        </Navbar.Collapse>
-      </Navbar>
+    <Container>
+      {message && <span>{message}</span>}
+      {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark"> */}
+      {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" /> */}
+      {/* <Navbar.Collapse id="responsive-navbar-nav"> */}
+      {/* <Nav.Link href="#" as="span"> */}
+      <Link style={padding} to="/">
+        home
+      </Link>
+      {/* </Nav.Link> */}
+      {/* <Nav.Link href="#" as="span"> */}
+      <Link style={padding} to="/notes">
+        notes
+      </Link>
+      {/* </Nav.Link> */}
+      {/* <Nav.Link href="#" as="span"> */}
+      <Link style={padding} to="/users">
+        users
+      </Link>
+      {/* </Nav.Link> */}
+      {/* <Nav.Link href="#" as="span"> */}
+      {user ? (
+        <em>{user} logged in</em>
+      ) : (
+        <Link style={padding} to="/login">
+          login
+        </Link>
+      )}
+      {/* </Nav.Link> */}
+      {/* </Navbar.Collapse> */}
+      {/* </Navbar> */}
 
       <Switch>
         <Route path="/notes/:id">
@@ -190,7 +201,7 @@ const App = () => {
         <br />
         <i>Note app, based on Department of CS 2020</i>
       </div>
-    </div>
+    </Container>
   );
 };
 
