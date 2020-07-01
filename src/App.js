@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-
 import {
   Switch,
   Route,
@@ -10,6 +9,37 @@ import {
   useHistory,
   useRouteMatch,
 } from "react-router-dom";
+
+import styled from "styled-components";
+
+const Button = styled.button`
+  background: Bisque;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid Chocolate;
+  border-radius: 3px;
+`;
+
+const Input = styled.input`
+  margin: 0.25em;
+`;
+
+const Page = styled.div`
+  padding: 1em;
+  background: papayawhip;
+`;
+
+const Navigation = styled.div`
+  background: BurlyWood;
+  padding: 1em;
+`;
+
+const Footer = styled.div`
+  background: Chocolate;
+  padding: 1em;
+  margin-top: 1em;
+`;
 
 const Home = () => (
   <div>
@@ -80,12 +110,12 @@ const Login = (props) => {
       <h2>login</h2>
       <form onSubmit={onSubmit}>
         <div>
-          username: <input />
+          username: <Input />
         </div>
         <div>
-          password: <input type="password" />
+          password: <Input type="password" />
         </div>
-        <button type="submit">login</button>
+        <Button type="submit">login</Button>
       </form>
     </div>
   );
@@ -127,8 +157,8 @@ const App = () => {
     : null;
 
   return (
-    <div>
-      <div>
+    <Page>
+      <Navigation>
         <Link style={padding} to="/">
           home
         </Link>
@@ -145,7 +175,7 @@ const App = () => {
             login
           </Link>
         )}
-      </div>
+      </Navigation>
 
       <Switch>
         <Route path="/notes/:id">
@@ -164,11 +194,10 @@ const App = () => {
           <Home />
         </Route>
       </Switch>
-      <div>
-        <br />
-        <i>Note app, based on Department of CS 2020</i>
-      </div>
-    </div>
+      <Footer>
+        <em>Note app, based on Department of CS 2020</em>
+      </Footer>
+    </Page>
   );
 };
 
