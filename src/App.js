@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Form, Button, Alert } from "react-bootstrap";
+import { Table, Form, Button, Alert, Navbar, Nav } from "react-bootstrap";
 import "./App.css";
 
 import {
@@ -139,24 +139,35 @@ const App = () => {
   return (
     <div className="container">
       {message && <Alert variant="success">{message}</Alert>}
-      <div>
-        <Link style={padding} to="/">
-          home
-        </Link>
-        <Link style={padding} to="/notes">
-          notes
-        </Link>
-        <Link style={padding} to="/users">
-          users
-        </Link>
-        {user ? (
-          <em>{user} logged in</em>
-        ) : (
-          <Link style={padding} to="/login">
-            login
-          </Link>
-        )}
-      </div>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav.Link href="#" as="span">
+            <Link style={padding} to="/">
+              home
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#" as="span">
+            <Link style={padding} to="/notes">
+              notes
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#" as="span">
+            <Link style={padding} to="/users">
+              users
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#" as="span">
+            {user ? (
+              <em>{user} logged in</em>
+            ) : (
+              <Link style={padding} to="/login">
+                login
+              </Link>
+            )}
+          </Nav.Link>
+        </Navbar.Collapse>
+      </Navbar>
 
       <Switch>
         <Route path="/notes/:id">
