@@ -7,7 +7,10 @@ import {
   TableRow,
   TableCell,
   Paper,
+  TextField,
+  Button,
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import "./App.css";
 
 import {
@@ -60,7 +63,7 @@ const Notes = ({ notes }) => (
               <TableCell>
                 <Link to={`/notes/${note.id}`}>{note.content}</Link>
               </TableCell>
-              <TableCell>{note.name}</TableCell>
+              <TableCell>{note.user}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -93,15 +96,16 @@ const Login = (props) => {
     <div>
       <h2>login</h2>
       <form onSubmit={onSubmit}>
-        {/* <Form.Group>
-          <Form.Label>username:</Form.Label>
-          <Form.Control type="text" name="username" />
-          <Form.Label>password:</Form.Label>
-          <Form.Control type="password" />
-          <Button variant="primary" type="submit">
-            login
-          </Button>
-        </Form.Group> */}
+        <div>
+          <TextField label="username" />
+        </div>
+        <div>
+          <TextField label="password" type="password" />
+        </div>
+
+        <Button variant="contained" color="primary" type="submit">
+          login
+        </Button>
       </form>
     </div>
   );
@@ -149,7 +153,7 @@ const App = () => {
 
   return (
     <Container>
-      {message && <span>{message}</span>}
+      {message && <Alert severity="success">{message}</Alert>}
       {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark"> */}
       {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" /> */}
       {/* <Navbar.Collapse id="responsive-navbar-nav"> */}
