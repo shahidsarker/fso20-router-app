@@ -9,6 +9,9 @@ import {
   Paper,
   TextField,
   Button,
+  AppBar,
+  Toolbar,
+  IconButton,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import "./App.css";
@@ -154,35 +157,26 @@ const App = () => {
   return (
     <Container>
       {message && <Alert severity="success">{message}</Alert>}
-      {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark"> */}
-      {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" /> */}
-      {/* <Navbar.Collapse id="responsive-navbar-nav"> */}
-      {/* <Nav.Link href="#" as="span"> */}
-      <Link style={padding} to="/">
-        home
-      </Link>
-      {/* </Nav.Link> */}
-      {/* <Nav.Link href="#" as="span"> */}
-      <Link style={padding} to="/notes">
-        notes
-      </Link>
-      {/* </Nav.Link> */}
-      {/* <Nav.Link href="#" as="span"> */}
-      <Link style={padding} to="/users">
-        users
-      </Link>
-      {/* </Nav.Link> */}
-      {/* <Nav.Link href="#" as="span"> */}
-      {user ? (
-        <em>{user} logged in</em>
-      ) : (
-        <Link style={padding} to="/login">
-          login
-        </Link>
-      )}
-      {/* </Nav.Link> */}
-      {/* </Navbar.Collapse> */}
-      {/* </Navbar> */}
+      <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" component={Link} to="/">
+            home
+          </Button>
+          <Button color="inherit" component={Link} to="/notes">
+            notes
+          </Button>
+          <Button color="inherit" component={Link} to="/users">
+            users
+          </Button>
+          {user ? (
+            <em>{user} logged in</em>
+          ) : (
+            <Button color="inherit" component={Link} to="/login">
+              login
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
 
       <Switch>
         <Route path="/notes/:id">
