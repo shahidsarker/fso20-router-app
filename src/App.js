@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Form, Button, Alert } from "react-bootstrap";
 import "./App.css";
 
 import {
@@ -7,7 +7,6 @@ import {
   Route,
   Link,
   Redirect,
-  useParams,
   useHistory,
   useRouteMatch,
 } from "react-router-dom";
@@ -30,8 +29,6 @@ const Home = () => (
 );
 
 const Note = ({ note }) => {
-  // const id = useParams().id;
-  // const note = notes.find((n) => n.id === Number(id));
   return (
     <div>
       <h2>{note.content}</h2>
@@ -122,9 +119,14 @@ const App = () => {
   ]);
 
   const [user, setUser] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const login = (user) => {
     setUser(user);
+    setMessage(`welcome ${user}`);
+    setTimeout(() => {
+      setMessage(null);
+    }, 10000);
   };
 
   const padding = { padding: 5 };
@@ -136,6 +138,7 @@ const App = () => {
 
   return (
     <div className="container">
+      {message && <Alert variant="success">{message}</Alert>}
       <div>
         <Link style={padding} to="/">
           home
